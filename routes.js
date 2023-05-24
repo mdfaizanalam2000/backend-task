@@ -4,9 +4,9 @@ const Employee = require("./models/EmployeeSchema");
 
 // Create an employee
 router.post('/addEmployee', async (req, res) => {
-    const { name, contacts } = req.body;
+    const data = req.body;
 
-    const employee = new Employee({ name, contacts });
+    const employee = new Employee(data);
 
     try {
         const savedEmployee = await employee.save();
