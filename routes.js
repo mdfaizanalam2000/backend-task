@@ -34,10 +34,10 @@ router.get('/employees', async (req, res) => {
 // Update an employee
 router.put('/updateEmployee/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, contacts } = req.body;
+    const updatedData = req.body;
 
     try {
-        const updatedEmployee = await Employee.findByIdAndUpdate(id, { name, contacts }, { new: true });
+        const updatedEmployee = await Employee.findByIdAndUpdate(id, updatedData, { new: true });
         res.json(updatedEmployee);
     } catch (error) {
         console.error(error);
@@ -49,8 +49,8 @@ router.put('/updateEmployee/:id', async (req, res) => {
 router.delete('/deleteEmployee/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const response = await Employee.findOneAndDelete(id);
-        res.status(204).send();
+        const response = await Employee.findByIdAndDelete(id);
+        res.sendStatus(204);
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while deleting the employee.');
